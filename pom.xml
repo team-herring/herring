@@ -77,6 +77,21 @@
             <version>4.8.2</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- Dependencies for ANTLR v4 -->
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4</artifactId>
+            <version>4.0</version>
+        </dependency>
+
+        <!-- Dependencies for JSTL -->
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+
     </dependencies>
 
     <build>
