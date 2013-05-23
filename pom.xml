@@ -2,13 +2,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>kr.swmaestro</groupId>
-    <artifactId>herring</artifactId>
+    <artifactId>herring-manager</artifactId>
     <packaging>war</packaging>
     <version>0.1-SNAPSHOT</version>
-    <name>herring</name>
+    <name>herring-manager</name>
 
     <properties>
         <spring.version>3.2.0.RELEASE</spring.version>
+        <junit.version>4.11</junit.version>
     </properties>
 
     <dependencies>
@@ -68,15 +69,8 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.8.2</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
-        </dependency>
-
-        <!-- Dependencies for ANTLR v4 -->
-        <dependency>
-            <groupId>org.antlr</groupId>
-            <artifactId>antlr4</artifactId>
-            <version>4.0</version>
         </dependency>
 
         <!-- Dependencies for JSTL -->
@@ -89,7 +83,7 @@
     </dependencies>
 
     <build>
-        <finalName>herring</finalName>
+        <finalName>herring-manager</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -108,4 +102,15 @@
             </plugin>
         </plugins>
     </build>
+
+    <distributionManagement>
+        <repository>
+            <id>maven.chiwanpark.com</id>
+            <url>http://maven.chiwanpark.com/content/repositories/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>maven.chiwanpark.com</id>
+            <url>http://maven.chiwanpark.com/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
