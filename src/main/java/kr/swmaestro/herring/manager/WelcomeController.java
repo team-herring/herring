@@ -1,4 +1,4 @@
-package kr.swmaestro.herring;
+package kr.swmaestro.herring.manager;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author Chiwan Park
  * @since 0.1
  */
-
 @Controller
 @RequestMapping("/")
 public class WelcomeController {
