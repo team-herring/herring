@@ -1,0 +1,39 @@
+div#wrapper {
+    position: absolute;
+    top: 50%;
+    height: 360px;
+    margin-top: -190px;
+}
+
+div#login-screen {
+    width: 555px;
+    margin: 20px auto;
+    padding: 25px;
+    position: relative;
+}
+
+div.login-form {
+    width: 360px;
+    background-color: #34495e;
+    margin-left: 135px;
+}
+
+div.login-form:before {
+    border-color: transparent #34495e transparent transparent;
+}
+
+div.login-icon {
+    float: left;
+    position: relative !important;
+    left: 0;
+    top: 0;
+}
+
+div.login-icon > img {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+div.login-form:after {
+    clear: both;
+}
