@@ -12,14 +12,14 @@ div#login-screen {
     position: relative;
 }
 
-div.login-form {
+form.login-form {
     width: 360px;
-    background-color: #34495e;
+    background-color: #34495e !important;
     margin-left: 135px;
 }
 
-div.login-form:before {
-    border-color: transparent #34495e transparent transparent;
+form.login-form:before {
+    border-color: transparent #34495e transparent transparent !important;
 }
 
 div.login-icon {
@@ -34,6 +34,6 @@ div.login-icon > img {
     max-height: 100px;
 }
 
-div.login-form:after {
+form.login-form:after {
     clear: both;
 }

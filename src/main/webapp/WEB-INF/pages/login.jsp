@@ -3,7 +3,7 @@
 <%@ taglib prefix="h" tagdir="/WEB-INF/tags" %>
 <h:html title="Login Required">
     <jsp:attribute name="css">
-        <link href="<c:url value="/resources/herring/login.css" />" rel="stylesheet" type="type/css"/>
+        <link href="<c:url value="/resources/herring/login.css"/>" type="text/css" rel="stylesheet"/>
     </jsp:attribute>
 
     <jsp:body>
