@@ -1,4 +1,4 @@
-package kr.swmaestro.herring.manager;
+package org.herring.manager;
 
 import org.junit.Before;
 import org.junit.Test;

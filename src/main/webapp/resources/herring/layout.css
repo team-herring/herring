@@ -14,3 +14,34 @@ div#footer {
     margin-top: 15px;
     padding-top: 15px;
 }
+
+div#contents-wrapper > div.description {
+    font-size: 20px;
+    margin-top: -7px;
+}
+
+div.contents-container {
+    padding-top: 10px;
+}
+
+div.contents-container div.tile {
+    text-align: inherit !important;
+}
+
+div.contents-container div.tile h2.tile-title {
+    line-height: 20px;
+    margin-bottom: 6px;
+}
+
+div.contents-container table.summary {
+    width: 100%;
+}
+
+div.contents-container table.summary th, div.contents-container table.summary td {
+    padding: 4px;
+}
+
+div.contents-container table.summary td {
+    font-size: 24px;
+    text-align: center;
+}

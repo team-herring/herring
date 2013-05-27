@@ -3,6 +3,7 @@
 <%@ taglib prefix="h" tagdir="/WEB-INF/tags" %>
 <%@ attribute name="title" required="true" %>
 <%@ attribute name="css" fragment="true" %>
+<%@ attribute name="description" %>
 <%@ attribute name="javascript" fragment="true" %>
 <h:html title="${title}">
     <jsp:attribute name="css">
@@ -16,16 +17,20 @@
     </jsp:attribute>
 
     <jsp:body>
+        <!-- Global Navigation Bar Start -->
         <div id="gnb" class="navbar navbar-static-top navbar-inverse">
             <div class="navbar-inner">
                 <div class="container-fluid">
                     <div class="row-fluid">
+                        <!-- Search Bar Start -->
                         <div class="pull-left span8 row-fluid">
                             <form id="search-form" class="navbar-form" action="<c:url value="/search"/>" method="get">
                                 <input id="textbox-query" name="search-query" type="text" placeholder="Search Query"/>
                                 <button class="btn btn-primary"><span class="fui-search"></span></button>
                             </form>
                         </div>
+                        <!-- Search Bar End -->
+                        <!-- Navigation Menu Start -->
                         <div class="pull-right">
                             <ul class="nav">
                                 <li>
@@ -42,15 +47,27 @@
                                 </li>
                             </ul>
                         </div>
+                        <!-- Navigation Menu End -->
                     </div>
                 </div>
             </div>
         </div>
+        <!-- Global Navigation Bar End -->
+        <!-- Contents Start -->
         <div id="contents-wrapper" class="container-fluid">
-            <jsp:doBody/>
+            <h1>${title}</h1>
+            <c:if test="${not empty description}">
+                <div class="description">${description}</div>
+            </c:if>
+            <div class="contents-container">
+                <jsp:doBody/>
+            </div>
         </div>
+        <!-- Contents End -->
+        <!-- Footer Start -->
         <div id="footer">
             Herring Project
         </div>
+        <!-- Footer End -->
     </jsp:body>
 </h:html>
