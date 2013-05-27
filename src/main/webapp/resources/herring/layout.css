@@ -1,0 +1,16 @@
+input#textbox-query {
+    width: 82% !important;
+    height: 21px !important;
+}
+
+form#search-form > button {
+    margin-left: 3px;
+}
+
+div#footer {
+    width: 100%;
+    text-align: center;
+    border-top: 1px solid #cecece;
+    margin-top: 15px;
+    padding-top: 15px;
+}
