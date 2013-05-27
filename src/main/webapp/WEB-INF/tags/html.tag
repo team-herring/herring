@@ -12,7 +12,7 @@
     <!-- Stylesheets for Framework -->
     <link href="<c:url value="/resources/3rd-party/bootstrap/css/bootstrap.css"/>" type="text/css" rel="stylesheet"/>
     <link href="<c:url value="/resources/3rd-party/flat-ui/css/flat-ui.css"/>" type="text/css" rel="stylesheet"/>
-    <link href="<c:url value="/resources/herring/template.css"/>" type="text/css" rel="stylesheet"/>
+    <link href="<c:url value="/resources/herring/html.css"/>" type="text/css" rel="stylesheet"/>
 
     <!-- Stylesheets for This Feature -->
     <jsp:invoke fragment="css"/>
