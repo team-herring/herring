@@ -25,7 +25,14 @@
                         <!-- Search Bar Start -->
                         <div class="pull-left span8 row-fluid">
                             <form id="search-form" class="navbar-form" action="<c:url value="/search"/>" method="get">
-                                <input id="textbox-query" name="search-query" type="text" placeholder="Search Query"/>
+                                <c:choose>
+                                    <c:when test="${empty query}">
+                                        <input id="textbox-query" name="search-query" type="text" placeholder="Search Query"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <input id="textbox-query" name="search-query" type="text" placeholder="Search Query" value="${query}"/>
+                                    </c:otherwise>
+                                </c:choose>
                                 <button class="btn btn-primary"><span class="fui-search"></span></button>
                             </form>
                         </div>

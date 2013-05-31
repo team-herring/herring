@@ -39,4 +39,10 @@ public class ViewTestController {
 
         return "systemDashboard";
     }
+
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public String searchResult(ModelMap model) {
+        model.put("query", "ask #http_log in 15 minutes");
+        return "searchResult";
+    }
 }
