@@ -10,6 +10,7 @@
     <properties>
         <spring.version>3.2.0.RELEASE</spring.version>
         <junit.version>4.11</junit.version>
+        <antlr.version>4.0</antlr.version>
     </properties>
 
     <dependencies>
@@ -78,6 +79,13 @@
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>
             <version>1.2</version>
+        </dependency>
+
+        <!-- Dependecies for ANTLR v4 -->
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4</artifactId>
+            <version>${antlr.version}</version>
         </dependency>
 
     </dependencies>
