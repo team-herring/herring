@@ -24,7 +24,7 @@ combinedComparisonExpression
 
 // Time Expression
 timeExpression
-    : date=DATE_LITERAL ('T' time=TIME_LITERAL zone=ZONE_LITERAL)?
+    : date=DATE_LITERAL ('T' time=TIME_LITERAL)? ('Z' zone=ZONE_LITERAL)?
     ;
 
 // Time Range Expression
@@ -33,14 +33,14 @@ timeRangeExpression
     | IN timeValue=POSITIVE_INTEGER timeUnit=(DAYS | MONTHS | HOURS | MINUTES)  # relativeTimeRangeExpression
     ;
 
-// Calculation Expression
-calcExpression
+// Aggregate Detail Expression
+aggregateExpression
     : function=(AVERAGE | COUNT | MIN | MAX | SUM | MEDIAN) OPEN_BRACE funcVar=FIELD_IDENTIFIER CLOSE_BRACE     # calcAggregateFunction
     ;
 
 // ASK Query Syntax
 askQuerySyntax
-    : ASK table=TABLE_IDENTIFIER timeRangeExpression
+    : ASK table=FIELD_IDENTIFIER timeRangeExpression
     ;
 
 // Filter Query Syntax
@@ -48,14 +48,19 @@ filterQuerySyntax
     : FILTER combinedComparisonExpression
     ;
 
-// Calculate Query Syntax
-calculateQuerySyntax
-    : CALCULATE resultVar=FIELD_IDENTIFIER EQUAL calcExpression (BY groupVar=FIELD_IDENTIFIER)?
+// Aggregate Query Syntax
+aggregateByFieldQuerySyntax
+    : CALCULATE resultVar=FIELD_IDENTIFIER EQUAL aggregateExpression (BY groupVar=FIELD_IDENTIFIER)?
+    ;
+
+aggregateByTimeQuerySyntax
+    : AGGREGATE resultVar=FIELD_IDENTIFIER EQUAL aggregateExpression BY TIME timeValue=POSITIVE_INTEGER timeUnit=(DAYS | MONTHS | HOURS | MINUTES)
     ;
 
 optionalQuerySyntax
     : PIPE filterQuerySyntax
-    | PIPE calculateQuerySyntax
+    | PIPE aggregateByFieldQuerySyntax
+    | PIPE aggregateByTimeQuerySyntax
     ;
 
 // All Query Syntax

@@ -4,6 +4,7 @@ lexer grammar CommonLexerRules;
 WS: [ \r\t\n]+ -> channel(1) ;
 
 // Aggregate Keywords
+AGGREGATE: ('A'|'a')('G'|'g')('G'|'g')('R'|'r')('E'|'e')('G'|'g')('A'|'a')('T'|'t')('E'|'e') ;
 CALCULATE: ('C'|'c')('A'|'a')('L'|'l')('C'|'c')('U'|'u')('L'|'l')('A'|'a')('T'|'t')('E'|'e') ;
 AVERAGE: ('A'|'a')('V'|'v')('E'|'e')('R'|'r')('A'|'a')('G'|'g')('E'|'e') ;
 COUNT: ('C'|'c')('O'|'o')('U'|'u')('N'|'n')('T'|'t') ;
@@ -14,12 +15,13 @@ MEDIAN: ('M'|'m')('E'|'e')('D'|'d')('I'|'i')('A'|'a')('N'|'n') ;
 BY: ('B'|'b')('Y'|'y') ;
 
 // Time Keywords
+TIME: ('T'|'t')('I'|'i')('M'|'m')('E'|'e') ;
 BETWEEN: ('B'|'b')('E'|'e')('T'|'t')('W'|'w')('E'|'e')('E'|'e')('N'|'n') ;
 IN: ('I'|'i')('N'|'n') ;
-DAYS: ('D'|'d')('A'|'a')('Y'|'y')('S'|'s') ;
-MINUTES: ('M'|'m')('I'|'i')('N'|'n')('U'|'u')('T'|'t')('E'|'e')('S'|'s') ;
-HOURS: ('H'|'h')('O'|'o')('U'|'u')('R'|'r')('S'|'s') ;
-MONTHS: ('M'|'m')('O'|'o')('N'|'n')('T'|'t')('H'|'h')('S'|'s') ;
+DAYS: ('D'|'d')('A'|'a')('Y'|'y')(('S'|'s')?) ;
+MINUTES: ('M'|'m')('I'|'i')('N'|'n')('U'|'u')('T'|'t')('E'|'e')(('S'|'s')?) ;
+HOURS: ('H'|'h')('O'|'o')('U'|'u')('R'|'r')(('S'|'s')?) ;
+MONTHS: ('M'|'m')('O'|'o')('N'|'n')('T'|'t')('H'|'h')(('S'|'s')?) ;
 
 // Ask Keywords
 ASK: ('A'|'a')('S'|'s')('K'|'k') ;
@@ -50,13 +52,12 @@ OPEN_BRACE: '(' ;
 CLOSE_BRACE: ')' ;
 
 // Identifiers
-TABLE_IDENTIFIER: '#'([0-9]|[a-z]|[A-Z]|'-'|'_')+ ;
 FIELD_IDENTIFIER: '@'([0-9]|[a-z]|[A-Z]|'-'|'_')+ ;
 
 // Literal
 DATE_LITERAL: [0-9][0-9][0-9][0-9]'-'[0-9][0-9]'-'[0-9][0-9] ;
 TIME_LITERAL: [0-9][0-9]':'[0-9][0-9]':'[0-9][0-9] ;
-ZONE_LITERAL: (('+'|'-')[0-9][0-9][0-9][0-9]|'Z') ;
+ZONE_LITERAL: ('+'|'-')[0-9][0-9][0-9][0-9] ;
 
 POSITIVE_INTEGER: '+'? [0-9]+ ;
 NEGATIVE_INTEGER: '-' [0-9]+ ;

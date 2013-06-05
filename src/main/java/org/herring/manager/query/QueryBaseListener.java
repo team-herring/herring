@@ -30,14 +30,17 @@ public class QueryBaseListener implements QueryListener {
 	@Override public void enterComparisonSingleExpression(QueryParser.ComparisonSingleExpressionContext ctx) { }
 	@Override public void exitComparisonSingleExpression(QueryParser.ComparisonSingleExpressionContext ctx) { }
 
-	@Override public void enterCalculateQuerySyntax(QueryParser.CalculateQuerySyntaxContext ctx) { }
-	@Override public void exitCalculateQuerySyntax(QueryParser.CalculateQuerySyntaxContext ctx) { }
-
 	@Override public void enterComparisonAndCombinedExpression(QueryParser.ComparisonAndCombinedExpressionContext ctx) { }
 	@Override public void exitComparisonAndCombinedExpression(QueryParser.ComparisonAndCombinedExpressionContext ctx) { }
 
 	@Override public void enterAbsoluteTimeRangeExpression(QueryParser.AbsoluteTimeRangeExpressionContext ctx) { }
 	@Override public void exitAbsoluteTimeRangeExpression(QueryParser.AbsoluteTimeRangeExpressionContext ctx) { }
+
+	@Override public void enterAggregateByTimeQuerySyntax(QueryParser.AggregateByTimeQuerySyntaxContext ctx) { }
+	@Override public void exitAggregateByTimeQuerySyntax(QueryParser.AggregateByTimeQuerySyntaxContext ctx) { }
+
+	@Override public void enterAggregateByFieldQuerySyntax(QueryParser.AggregateByFieldQuerySyntaxContext ctx) { }
+	@Override public void exitAggregateByFieldQuerySyntax(QueryParser.AggregateByFieldQuerySyntaxContext ctx) { }
 
 	@Override public void enterOptionalQuerySyntax(QueryParser.OptionalQuerySyntaxContext ctx) { }
 	@Override public void exitOptionalQuerySyntax(QueryParser.OptionalQuerySyntaxContext ctx) { }

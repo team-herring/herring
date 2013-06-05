@@ -27,14 +27,17 @@ public interface QueryListener extends ParseTreeListener {
 	void enterComparisonSingleExpression(QueryParser.ComparisonSingleExpressionContext ctx);
 	void exitComparisonSingleExpression(QueryParser.ComparisonSingleExpressionContext ctx);
 
-	void enterCalculateQuerySyntax(QueryParser.CalculateQuerySyntaxContext ctx);
-	void exitCalculateQuerySyntax(QueryParser.CalculateQuerySyntaxContext ctx);
-
 	void enterComparisonAndCombinedExpression(QueryParser.ComparisonAndCombinedExpressionContext ctx);
 	void exitComparisonAndCombinedExpression(QueryParser.ComparisonAndCombinedExpressionContext ctx);
 
 	void enterAbsoluteTimeRangeExpression(QueryParser.AbsoluteTimeRangeExpressionContext ctx);
 	void exitAbsoluteTimeRangeExpression(QueryParser.AbsoluteTimeRangeExpressionContext ctx);
+
+	void enterAggregateByTimeQuerySyntax(QueryParser.AggregateByTimeQuerySyntaxContext ctx);
+	void exitAggregateByTimeQuerySyntax(QueryParser.AggregateByTimeQuerySyntaxContext ctx);
+
+	void enterAggregateByFieldQuerySyntax(QueryParser.AggregateByFieldQuerySyntaxContext ctx);
+	void exitAggregateByFieldQuerySyntax(QueryParser.AggregateByFieldQuerySyntaxContext ctx);
 
 	void enterOptionalQuerySyntax(QueryParser.OptionalQuerySyntaxContext ctx);
 	void exitOptionalQuerySyntax(QueryParser.OptionalQuerySyntaxContext ctx);
