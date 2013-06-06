@@ -6,9 +6,13 @@ import org.antlr.v4.runtime.tree.*;
 import org.antlr.v4.runtime.Token;
 
 public interface QueryVisitor<T> extends ParseTreeVisitor<T> {
+	T visitStringComparisonExpression(QueryParser.StringComparisonExpressionContext ctx);
+
 	T visitComparisonWrappedExpression(QueryParser.ComparisonWrappedExpressionContext ctx);
 
 	T visitCalcAggregateFunction(QueryParser.CalcAggregateFunctionContext ctx);
+
+	T visitNumberComparisonExpression(QueryParser.NumberComparisonExpressionContext ctx);
 
 	T visitComparisonNotCombinedExpression(QueryParser.ComparisonNotCombinedExpressionContext ctx);
 
@@ -25,6 +29,8 @@ public interface QueryVisitor<T> extends ParseTreeVisitor<T> {
 	T visitAbsoluteTimeRangeExpression(QueryParser.AbsoluteTimeRangeExpressionContext ctx);
 
 	T visitAggregateByTimeQuerySyntax(QueryParser.AggregateByTimeQuerySyntaxContext ctx);
+
+	T visitTimeComparisonExpression(QueryParser.TimeComparisonExpressionContext ctx);
 
 	T visitAggregateByFieldQuerySyntax(QueryParser.AggregateByFieldQuerySyntaxContext ctx);
 

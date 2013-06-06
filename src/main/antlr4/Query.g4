@@ -6,11 +6,32 @@ package org.herring.manager.query;
 
 import CommonLexerRules ;
 
+// Time Comparison
+timeComparisonExpression
+    : (leftVar=FIELD_IDENTIFIER | (leftValue=timeExpression))
+      operator=(LESS_THAN | LESS_THAN_OR_EQUAL | GREATER_THAN | GREATER_THAN_OR_EQUAL | EQUAL | NOT_EQUAL)
+      (rightVar=FIELD_IDENTIFIER | (rightValue=timeExpression))
+    ;
+
+// Number Comparision
+numberComparisonExpression
+    : left=(FIELD_IDENTIFIER | POSITIVE_INTEGER | NEGATIVE_INTEGER | POSITIVE_REAL | NEGATIVE_REAL)
+      operator=(LESS_THAN | LESS_THAN_OR_EQUAL | GREATER_THAN | GREATER_THAN_OR_EQUAL | EQUAL | NOT_EQUAL)
+      right=(FIELD_IDENTIFIER | POSITIVE_INTEGER | NEGATIVE_INTEGER | POSITIVE_REAL | NEGATIVE_REAL)
+    ;
+
+// String Comparision
+stringComparisonExpression
+    : left=(FIELD_IDENTIFIER | SMALL_QUOTED_STRING | LARGE_QUOTED_STRING)
+      operator=(LESS_THAN | LESS_THAN_OR_EQUAL | GREATER_THAN | GREATER_THAN_OR_EQUAL | EQUAL | NOT_EQUAL | IN)
+      right=(FIELD_IDENTIFIER | SMALL_QUOTED_STRING | LARGE_QUOTED_STRING)
+    ;
+
 // Single Comparison
 singleComparisonExpression
-    : left=(FIELD_IDENTIFIER | DATE_LITERAL | POSITIVE_INTEGER | NEGATIVE_INTEGER | POSITIVE_REAL | NEGATIVE_REAL | SMALL_QUOTED_STRING | LARGE_QUOTED_STRING)
-      operator=(LESS_THAN | LESS_THAN_OR_EQUAL | GREATER_THAN | GREATER_THAN_OR_EQUAL | EQUAL | NOT_EQUAL | IN)
-      right=(FIELD_IDENTIFIER | DATE_LITERAL | POSITIVE_INTEGER | NEGATIVE_INTEGER | POSITIVE_REAL | NEGATIVE_REAL | SMALL_QUOTED_STRING | LARGE_QUOTED_STRING)
+    : timeComparisonExpression
+    | numberComparisonExpression
+    | stringComparisonExpression
     ;
 
 // Combined Comparison

@@ -7,9 +7,13 @@ import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.ParserRuleContext;
 
 public class QueryBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements QueryVisitor<T> {
+	@Override public T visitStringComparisonExpression(QueryParser.StringComparisonExpressionContext ctx) { return visitChildren(ctx); }
+
 	@Override public T visitComparisonWrappedExpression(QueryParser.ComparisonWrappedExpressionContext ctx) { return visitChildren(ctx); }
 
 	@Override public T visitCalcAggregateFunction(QueryParser.CalcAggregateFunctionContext ctx) { return visitChildren(ctx); }
+
+	@Override public T visitNumberComparisonExpression(QueryParser.NumberComparisonExpressionContext ctx) { return visitChildren(ctx); }
 
 	@Override public T visitComparisonNotCombinedExpression(QueryParser.ComparisonNotCombinedExpressionContext ctx) { return visitChildren(ctx); }
 
@@ -26,6 +30,8 @@ public class QueryBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements 
 	@Override public T visitAbsoluteTimeRangeExpression(QueryParser.AbsoluteTimeRangeExpressionContext ctx) { return visitChildren(ctx); }
 
 	@Override public T visitAggregateByTimeQuerySyntax(QueryParser.AggregateByTimeQuerySyntaxContext ctx) { return visitChildren(ctx); }
+
+	@Override public T visitTimeComparisonExpression(QueryParser.TimeComparisonExpressionContext ctx) { return visitChildren(ctx); }
 
 	@Override public T visitAggregateByFieldQuerySyntax(QueryParser.AggregateByFieldQuerySyntaxContext ctx) { return visitChildren(ctx); }
 
