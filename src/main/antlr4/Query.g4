@@ -37,8 +37,8 @@ singleComparisonExpression
 // Combined Comparison
 combinedComparisonExpression
     : OPEN_BRACE combinedComparisonExpression CLOSE_BRACE               # comparisonWrappedExpression
-    | combinedComparisonExpression AND combinedComparisonExpression     # comparisonAndCombinedExpression
-    | combinedComparisonExpression OR combinedComparisonExpression      # comparisonOrCombinedExpression
+    | left=combinedComparisonExpression AND right=combinedComparisonExpression     # comparisonAndCombinedExpression
+    | left=combinedComparisonExpression OR right=combinedComparisonExpression      # comparisonOrCombinedExpression
     | NOT combinedComparisonExpression                                  # comparisonNotCombinedExpression
     | singleComparisonExpression                                        # comparisonSingleExpression
     ;

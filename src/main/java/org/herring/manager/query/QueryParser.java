@@ -418,6 +418,8 @@ public class QueryParser extends Parser {
 		}
 	}
 	public static class ComparisonOrCombinedExpressionContext extends CombinedComparisonExpressionContext {
+		public CombinedComparisonExpressionContext left;
+		public CombinedComparisonExpressionContext right;
 		public CombinedComparisonExpressionContext combinedComparisonExpression(int i) {
 			return getRuleContext(CombinedComparisonExpressionContext.class,i);
 		}
@@ -444,13 +446,15 @@ public class QueryParser extends Parser {
 		}
 	}
 	public static class ComparisonAndCombinedExpressionContext extends CombinedComparisonExpressionContext {
+		public CombinedComparisonExpressionContext left;
+		public CombinedComparisonExpressionContext right;
 		public CombinedComparisonExpressionContext combinedComparisonExpression(int i) {
 			return getRuleContext(CombinedComparisonExpressionContext.class,i);
 		}
-		public TerminalNode AND() { return getToken(QueryParser.AND, 0); }
 		public List<CombinedComparisonExpressionContext> combinedComparisonExpression() {
 			return getRuleContexts(CombinedComparisonExpressionContext.class);
 		}
+		public TerminalNode AND() { return getToken(QueryParser.AND, 0); }
 		public ComparisonAndCombinedExpressionContext(CombinedComparisonExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
@@ -524,22 +528,24 @@ public class QueryParser extends Parser {
 					case 1:
 						{
 						_localctx = new ComparisonAndCombinedExpressionContext(new CombinedComparisonExpressionContext(_parentctx, _parentState, _p));
+						((ComparisonAndCombinedExpressionContext)_localctx).left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_combinedComparisonExpression);
 						setState(60);
 						if (!(4 >= _localctx._p)) throw new FailedPredicateException(this, "4 >= $_p");
 						setState(61); match(AND);
-						setState(62); combinedComparisonExpression(5);
+						setState(62); ((ComparisonAndCombinedExpressionContext)_localctx).right = combinedComparisonExpression(5);
 						}
 						break;
 
 					case 2:
 						{
 						_localctx = new ComparisonOrCombinedExpressionContext(new CombinedComparisonExpressionContext(_parentctx, _parentState, _p));
+						((ComparisonOrCombinedExpressionContext)_localctx).left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_combinedComparisonExpression);
 						setState(63);
 						if (!(3 >= _localctx._p)) throw new FailedPredicateException(this, "3 >= $_p");
 						setState(64); match(OR);
-						setState(65); combinedComparisonExpression(4);
+						setState(65); ((ComparisonOrCombinedExpressionContext)_localctx).right = combinedComparisonExpression(4);
 						}
 						break;
 					}
