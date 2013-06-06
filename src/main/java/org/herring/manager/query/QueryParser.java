@@ -110,12 +110,9 @@ public class QueryParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_singleComparisonExpression; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof QueryListener ) ((QueryListener)listener).enterSingleComparisonExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof QueryListener ) ((QueryListener)listener).exitSingleComparisonExpression(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof QueryVisitor ) return ((QueryVisitor<? extends T>)visitor).visitSingleComparisonExpression(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -183,12 +180,9 @@ public class QueryParser extends Parser {
 		public TerminalNode OPEN_BRACE() { return getToken(QueryParser.OPEN_BRACE, 0); }
 		public ComparisonWrappedExpressionContext(CombinedComparisonExpressionContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof QueryListener ) ((QueryListener)listener).enterComparisonWrappedExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof QueryListener ) ((QueryListener)listener).exitComparisonWrappedExpression(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof QueryVisitor ) return ((QueryVisitor<? extends T>)visitor).visitComparisonWrappedExpression(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	public static class ComparisonNotCombinedExpressionContext extends CombinedComparisonExpressionContext {
@@ -198,12 +192,9 @@ public class QueryParser extends Parser {
 		}
 		public ComparisonNotCombinedExpressionContext(CombinedComparisonExpressionContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof QueryListener ) ((QueryListener)listener).enterComparisonNotCombinedExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof QueryListener ) ((QueryListener)listener).exitComparisonNotCombinedExpression(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof QueryVisitor ) return ((QueryVisitor<? extends T>)visitor).visitComparisonNotCombinedExpression(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	public static class ComparisonOrCombinedExpressionContext extends CombinedComparisonExpressionContext {
@@ -216,12 +207,9 @@ public class QueryParser extends Parser {
 		public TerminalNode OR() { return getToken(QueryParser.OR, 0); }
 		public ComparisonOrCombinedExpressionContext(CombinedComparisonExpressionContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof QueryListener ) ((QueryListener)listener).enterComparisonOrCombinedExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof QueryListener ) ((QueryListener)listener).exitComparisonOrCombinedExpression(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof QueryVisitor ) return ((QueryVisitor<? extends T>)visitor).visitComparisonOrCombinedExpression(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	public static class ComparisonSingleExpressionContext extends CombinedComparisonExpressionContext {
@@ -230,12 +218,9 @@ public class QueryParser extends Parser {
 		}
 		public ComparisonSingleExpressionContext(CombinedComparisonExpressionContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof QueryListener ) ((QueryListener)listener).enterComparisonSingleExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof QueryListener ) ((QueryListener)listener).exitComparisonSingleExpression(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof QueryVisitor ) return ((QueryVisitor<? extends T>)visitor).visitComparisonSingleExpression(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	public static class ComparisonAndCombinedExpressionContext extends CombinedComparisonExpressionContext {
@@ -248,12 +233,9 @@ public class QueryParser extends Parser {
 		}
 		public ComparisonAndCombinedExpressionContext(CombinedComparisonExpressionContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof QueryListener ) ((QueryListener)listener).enterComparisonAndCombinedExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof QueryListener ) ((QueryListener)listener).exitComparisonAndCombinedExpression(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof QueryVisitor ) return ((QueryVisitor<? extends T>)visitor).visitComparisonAndCombinedExpression(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -372,12 +354,9 @@ public class QueryParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_timeExpression; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof QueryListener ) ((QueryListener)listener).enterTimeExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof QueryListener ) ((QueryListener)listener).exitTimeExpression(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof QueryVisitor ) return ((QueryVisitor<? extends T>)visitor).visitTimeExpression(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -442,12 +421,9 @@ public class QueryParser extends Parser {
 		public TerminalNode HOURS() { return getToken(QueryParser.HOURS, 0); }
 		public RelativeTimeRangeExpressionContext(TimeRangeExpressionContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof QueryListener ) ((QueryListener)listener).enterRelativeTimeRangeExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof QueryListener ) ((QueryListener)listener).exitRelativeTimeRangeExpression(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof QueryVisitor ) return ((QueryVisitor<? extends T>)visitor).visitRelativeTimeRangeExpression(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	public static class AbsoluteTimeRangeExpressionContext extends TimeRangeExpressionContext {
@@ -463,12 +439,9 @@ public class QueryParser extends Parser {
 		}
 		public AbsoluteTimeRangeExpressionContext(TimeRangeExpressionContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof QueryListener ) ((QueryListener)listener).enterAbsoluteTimeRangeExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof QueryListener ) ((QueryListener)listener).exitAbsoluteTimeRangeExpression(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof QueryVisitor ) return ((QueryVisitor<? extends T>)visitor).visitAbsoluteTimeRangeExpression(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -544,12 +517,9 @@ public class QueryParser extends Parser {
 		public TerminalNode AVERAGE() { return getToken(QueryParser.AVERAGE, 0); }
 		public CalcAggregateFunctionContext(AggregateExpressionContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof QueryListener ) ((QueryListener)listener).enterCalcAggregateFunction(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof QueryListener ) ((QueryListener)listener).exitCalcAggregateFunction(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof QueryVisitor ) return ((QueryVisitor<? extends T>)visitor).visitCalcAggregateFunction(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -596,12 +566,9 @@ public class QueryParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_askQuerySyntax; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof QueryListener ) ((QueryListener)listener).enterAskQuerySyntax(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof QueryListener ) ((QueryListener)listener).exitAskQuerySyntax(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof QueryVisitor ) return ((QueryVisitor<? extends T>)visitor).visitAskQuerySyntax(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -637,12 +604,9 @@ public class QueryParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_filterQuerySyntax; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof QueryListener ) ((QueryListener)listener).enterFilterQuerySyntax(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof QueryListener ) ((QueryListener)listener).exitFilterQuerySyntax(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof QueryVisitor ) return ((QueryVisitor<? extends T>)visitor).visitFilterQuerySyntax(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -685,12 +649,9 @@ public class QueryParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_aggregateByFieldQuerySyntax; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof QueryListener ) ((QueryListener)listener).enterAggregateByFieldQuerySyntax(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof QueryListener ) ((QueryListener)listener).exitAggregateByFieldQuerySyntax(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof QueryVisitor ) return ((QueryVisitor<? extends T>)visitor).visitAggregateByFieldQuerySyntax(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -749,12 +710,9 @@ public class QueryParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_aggregateByTimeQuerySyntax; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof QueryListener ) ((QueryListener)listener).enterAggregateByTimeQuerySyntax(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof QueryListener ) ((QueryListener)listener).exitAggregateByTimeQuerySyntax(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof QueryVisitor ) return ((QueryVisitor<? extends T>)visitor).visitAggregateByTimeQuerySyntax(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -808,12 +766,9 @@ public class QueryParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_optionalQuerySyntax; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof QueryListener ) ((QueryListener)listener).enterOptionalQuerySyntax(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof QueryListener ) ((QueryListener)listener).exitOptionalQuerySyntax(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof QueryVisitor ) return ((QueryVisitor<? extends T>)visitor).visitOptionalQuerySyntax(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -874,12 +829,9 @@ public class QueryParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_querySyntax; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof QueryListener ) ((QueryListener)listener).enterQuerySyntax(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof QueryListener ) ((QueryListener)listener).exitQuerySyntax(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof QueryVisitor ) return ((QueryVisitor<? extends T>)visitor).visitQuerySyntax(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
