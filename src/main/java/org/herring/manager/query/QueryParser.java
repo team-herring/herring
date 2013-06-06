@@ -729,17 +729,23 @@ public class QueryParser extends Parser {
 		}
 	}
 	public static class CalcAggregateFunctionContext extends AggregateExpressionContext {
+		public Token resultVar;
 		public Token function;
 		public Token funcVar;
 		public TerminalNode MAX() { return getToken(QueryParser.MAX, 0); }
 		public TerminalNode COUNT() { return getToken(QueryParser.COUNT, 0); }
 		public TerminalNode MIN() { return getToken(QueryParser.MIN, 0); }
-		public TerminalNode FIELD_IDENTIFIER() { return getToken(QueryParser.FIELD_IDENTIFIER, 0); }
+		public List<TerminalNode> FIELD_IDENTIFIER() { return getTokens(QueryParser.FIELD_IDENTIFIER); }
 		public TerminalNode CLOSE_BRACE() { return getToken(QueryParser.CLOSE_BRACE, 0); }
 		public TerminalNode SUM() { return getToken(QueryParser.SUM, 0); }
 		public TerminalNode MEDIAN() { return getToken(QueryParser.MEDIAN, 0); }
 		public TerminalNode OPEN_BRACE() { return getToken(QueryParser.OPEN_BRACE, 0); }
+		public TerminalNode AGGREGATE() { return getToken(QueryParser.AGGREGATE, 0); }
 		public TerminalNode AVERAGE() { return getToken(QueryParser.AVERAGE, 0); }
+		public TerminalNode FIELD_IDENTIFIER(int i) {
+			return getToken(QueryParser.FIELD_IDENTIFIER, i);
+		}
+		public TerminalNode EQUAL() { return getToken(QueryParser.EQUAL, 0); }
 		public CalcAggregateFunctionContext(AggregateExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
@@ -756,16 +762,19 @@ public class QueryParser extends Parser {
 			_localctx = new CalcAggregateFunctionContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(90);
+			setState(90); match(AGGREGATE);
+			setState(91); ((CalcAggregateFunctionContext)_localctx).resultVar = match(FIELD_IDENTIFIER);
+			setState(92); match(EQUAL);
+			setState(93);
 			((CalcAggregateFunctionContext)_localctx).function = _input.LT(1);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << AVERAGE) | (1L << COUNT) | (1L << SUM) | (1L << MIN) | (1L << MAX) | (1L << MEDIAN))) != 0)) ) {
 				((CalcAggregateFunctionContext)_localctx).function = (Token)_errHandler.recoverInline(this);
 			}
 			consume();
-			setState(91); match(OPEN_BRACE);
-			setState(92); ((CalcAggregateFunctionContext)_localctx).funcVar = match(FIELD_IDENTIFIER);
-			setState(93); match(CLOSE_BRACE);
+			setState(94); match(OPEN_BRACE);
+			setState(95); ((CalcAggregateFunctionContext)_localctx).funcVar = match(FIELD_IDENTIFIER);
+			setState(96); match(CLOSE_BRACE);
 			}
 		}
 		catch (RecognitionException re) {
@@ -803,9 +812,9 @@ public class QueryParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(95); match(ASK);
-			setState(96); ((AskQuerySyntaxContext)_localctx).table = match(FIELD_IDENTIFIER);
-			setState(97); timeRangeExpression();
+			setState(98); match(ASK);
+			setState(99); ((AskQuerySyntaxContext)_localctx).table = match(FIELD_IDENTIFIER);
+			setState(100); timeRangeExpression();
 			}
 		}
 		catch (RecognitionException re) {
@@ -841,8 +850,8 @@ public class QueryParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(99); match(FILTER);
-			setState(100); combinedComparisonExpression(0);
+			setState(102); match(FILTER);
+			setState(103); combinedComparisonExpression(0);
 			}
 		}
 		catch (RecognitionException re) {
@@ -857,18 +866,12 @@ public class QueryParser extends Parser {
 	}
 
 	public static class AggregateByFieldQuerySyntaxContext extends ParserRuleContext {
-		public Token resultVar;
 		public Token groupVar;
 		public AggregateExpressionContext aggregateExpression() {
 			return getRuleContext(AggregateExpressionContext.class,0);
 		}
 		public TerminalNode BY() { return getToken(QueryParser.BY, 0); }
-		public List<TerminalNode> FIELD_IDENTIFIER() { return getTokens(QueryParser.FIELD_IDENTIFIER); }
-		public TerminalNode CALCULATE() { return getToken(QueryParser.CALCULATE, 0); }
-		public TerminalNode FIELD_IDENTIFIER(int i) {
-			return getToken(QueryParser.FIELD_IDENTIFIER, i);
-		}
-		public TerminalNode EQUAL() { return getToken(QueryParser.EQUAL, 0); }
+		public TerminalNode FIELD_IDENTIFIER() { return getToken(QueryParser.FIELD_IDENTIFIER, 0); }
 		public AggregateByFieldQuerySyntaxContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -887,9 +890,6 @@ public class QueryParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(102); match(CALCULATE);
-			setState(103); ((AggregateByFieldQuerySyntaxContext)_localctx).resultVar = match(FIELD_IDENTIFIER);
-			setState(104); match(EQUAL);
 			setState(105); aggregateExpression();
 			setState(108);
 			_la = _input.LA(1);
@@ -914,7 +914,6 @@ public class QueryParser extends Parser {
 	}
 
 	public static class AggregateByTimeQuerySyntaxContext extends ParserRuleContext {
-		public Token resultVar;
 		public Token timeValue;
 		public Token timeUnit;
 		public TerminalNode MINUTES() { return getToken(QueryParser.MINUTES, 0); }
@@ -925,11 +924,8 @@ public class QueryParser extends Parser {
 		}
 		public TerminalNode POSITIVE_INTEGER() { return getToken(QueryParser.POSITIVE_INTEGER, 0); }
 		public TerminalNode BY() { return getToken(QueryParser.BY, 0); }
-		public TerminalNode FIELD_IDENTIFIER() { return getToken(QueryParser.FIELD_IDENTIFIER, 0); }
 		public TerminalNode MONTHS() { return getToken(QueryParser.MONTHS, 0); }
-		public TerminalNode AGGREGATE() { return getToken(QueryParser.AGGREGATE, 0); }
 		public TerminalNode HOURS() { return getToken(QueryParser.HOURS, 0); }
-		public TerminalNode EQUAL() { return getToken(QueryParser.EQUAL, 0); }
 		public AggregateByTimeQuerySyntaxContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -948,14 +944,11 @@ public class QueryParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(110); match(AGGREGATE);
-			setState(111); ((AggregateByTimeQuerySyntaxContext)_localctx).resultVar = match(FIELD_IDENTIFIER);
-			setState(112); match(EQUAL);
-			setState(113); aggregateExpression();
-			setState(114); match(BY);
-			setState(115); match(TIME);
-			setState(116); ((AggregateByTimeQuerySyntaxContext)_localctx).timeValue = match(POSITIVE_INTEGER);
-			setState(117);
+			setState(110); aggregateExpression();
+			setState(111); match(BY);
+			setState(112); match(TIME);
+			setState(113); ((AggregateByTimeQuerySyntaxContext)_localctx).timeValue = match(POSITIVE_INTEGER);
+			setState(114);
 			((AggregateByTimeQuerySyntaxContext)_localctx).timeUnit = _input.LT(1);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << DAYS) | (1L << MINUTES) | (1L << HOURS) | (1L << MONTHS))) != 0)) ) {
@@ -1001,29 +994,29 @@ public class QueryParser extends Parser {
 		OptionalQuerySyntaxContext _localctx = new OptionalQuerySyntaxContext(_ctx, getState());
 		enterRule(_localctx, 24, RULE_optionalQuerySyntax);
 		try {
-			setState(125);
+			setState(122);
 			switch ( getInterpreter().adaptivePredict(_input,10,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(119); match(PIPE);
-				setState(120); filterQuerySyntax();
+				setState(116); match(PIPE);
+				setState(117); filterQuerySyntax();
 				}
 				break;
 
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(121); match(PIPE);
-				setState(122); aggregateByFieldQuerySyntax();
+				setState(118); match(PIPE);
+				setState(119); aggregateByFieldQuerySyntax();
 				}
 				break;
 
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(123); match(PIPE);
-				setState(124); aggregateByTimeQuerySyntax();
+				setState(120); match(PIPE);
+				setState(121); aggregateByTimeQuerySyntax();
 				}
 				break;
 			}
@@ -1067,17 +1060,17 @@ public class QueryParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(127); askQuerySyntax();
-			setState(129); 
+			setState(124); askQuerySyntax();
+			setState(126); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(128); optionalQuerySyntax();
+				setState(125); optionalQuerySyntax();
 				}
 				}
-				setState(131); 
+				setState(128); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( _la==PIPE );
@@ -1110,40 +1103,38 @@ public class QueryParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\2\3\62\u0088\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b"+
+		"\2\3\62\u0085\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b"+
 		"\4\t\t\t\4\n\t\n\4\13\t\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\3\2\3\2"+
 		"\5\2!\n\2\3\2\3\2\3\2\5\2&\n\2\3\3\3\3\3\3\3\3\3\4\3\4\3\4\3\4\3\5\3\5"+
 		"\3\5\5\5\63\n\5\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\5\6=\n\6\3\6\3\6\3\6\3"+
 		"\6\3\6\3\6\7\6E\n\6\f\6\16\6H\13\6\3\7\3\7\3\7\5\7M\n\7\3\7\3\7\5\7Q\n"+
-		"\7\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\5\b[\n\b\3\t\3\t\3\t\3\t\3\t\3\n\3"+
-		"\n\3\n\3\n\3\13\3\13\3\13\3\f\3\f\3\f\3\f\3\f\3\f\5\fo\n\f\3\r\3\r\3\r"+
-		"\3\r\3\r\3\r\3\r\3\r\3\r\3\16\3\16\3\16\3\16\3\16\3\16\5\16\u0080\n\16"+
-		"\3\17\3\17\6\17\u0084\n\17\r\17\16\17\u0085\3\17\2\20\2\4\6\b\n\f\16\20"+
-		"\22\24\26\30\32\34\2\f\3\34!\4))-\60\3\34!\4))-\60\4))\61\62\5\21\21\32"+
-		"\32\34!\4))\61\62\3\22\25\3\b\r\3\22\25\u0088\2 \3\2\2\2\4\'\3\2\2\2\6"+
-		"+\3\2\2\2\b\62\3\2\2\2\n<\3\2\2\2\fI\3\2\2\2\16Z\3\2\2\2\20\\\3\2\2\2"+
-		"\22a\3\2\2\2\24e\3\2\2\2\26h\3\2\2\2\30p\3\2\2\2\32\177\3\2\2\2\34\u0081"+
-		"\3\2\2\2\36!\7)\2\2\37!\5\f\7\2 \36\3\2\2\2 \37\3\2\2\2!\"\3\2\2\2\"%"+
-		"\t\2\2\2#&\7)\2\2$&\5\f\7\2%#\3\2\2\2%$\3\2\2\2&\3\3\2\2\2\'(\t\3\2\2"+
-		"()\t\4\2\2)*\t\5\2\2*\5\3\2\2\2+,\t\6\2\2,-\t\7\2\2-.\t\b\2\2.\7\3\2\2"+
-		"\2/\63\5\2\2\2\60\63\5\4\3\2\61\63\5\6\4\2\62/\3\2\2\2\62\60\3\2\2\2\62"+
-		"\61\3\2\2\2\63\t\3\2\2\2\64\65\b\6\1\2\65\66\7\33\2\2\66=\5\n\6\2\678"+
-		"\7\'\2\289\5\n\6\29:\7(\2\2:=\3\2\2\2;=\5\b\5\2<\64\3\2\2\2<\67\3\2\2"+
-		"\2<;\3\2\2\2=F\3\2\2\2>?\6\6\2\3?@\7\30\2\2@E\5\n\6\2AB\6\6\3\3BC\7\31"+
-		"\2\2CE\5\n\6\2D>\3\2\2\2DA\3\2\2\2EH\3\2\2\2FD\3\2\2\2FG\3\2\2\2G\13\3"+
-		"\2\2\2HF\3\2\2\2IL\7*\2\2JK\7\3\2\2KM\7+\2\2LJ\3\2\2\2LM\3\2\2\2MP\3\2"+
-		"\2\2NO\7\4\2\2OQ\7,\2\2PN\3\2\2\2PQ\3\2\2\2Q\r\3\2\2\2RS\7\20\2\2ST\5"+
-		"\f\7\2TU\7\30\2\2UV\5\f\7\2V[\3\2\2\2WX\7\21\2\2XY\7-\2\2Y[\t\t\2\2ZR"+
-		"\3\2\2\2ZW\3\2\2\2[\17\3\2\2\2\\]\t\n\2\2]^\7\'\2\2^_\7)\2\2_`\7(\2\2"+
-		"`\21\3\2\2\2ab\7\26\2\2bc\7)\2\2cd\5\16\b\2d\23\3\2\2\2ef\7\27\2\2fg\5"+
-		"\n\6\2g\25\3\2\2\2hi\7\7\2\2ij\7)\2\2jk\7 \2\2kn\5\20\t\2lm\7\16\2\2m"+
-		"o\7)\2\2nl\3\2\2\2no\3\2\2\2o\27\3\2\2\2pq\7\6\2\2qr\7)\2\2rs\7 \2\2s"+
-		"t\5\20\t\2tu\7\16\2\2uv\7\17\2\2vw\7-\2\2wx\t\13\2\2x\31\3\2\2\2yz\7&"+
-		"\2\2z\u0080\5\24\13\2{|\7&\2\2|\u0080\5\26\f\2}~\7&\2\2~\u0080\5\30\r"+
-		"\2\177y\3\2\2\2\177{\3\2\2\2\177}\3\2\2\2\u0080\33\3\2\2\2\u0081\u0083"+
-		"\5\22\n\2\u0082\u0084\5\32\16\2\u0083\u0082\3\2\2\2\u0084\u0085\3\2\2"+
-		"\2\u0085\u0083\3\2\2\2\u0085\u0086\3\2\2\2\u0086\35\3\2\2\2\16 %\62<D"+
-		"FLPZn\177\u0085";
+		"\7\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\5\b[\n\b\3\t\3\t\3\t\3\t\3\t\3\t\3"+
+		"\t\3\t\3\n\3\n\3\n\3\n\3\13\3\13\3\13\3\f\3\f\3\f\5\fo\n\f\3\r\3\r\3\r"+
+		"\3\r\3\r\3\r\3\16\3\16\3\16\3\16\3\16\3\16\5\16}\n\16\3\17\3\17\6\17\u0081"+
+		"\n\17\r\17\16\17\u0082\3\17\2\20\2\4\6\b\n\f\16\20\22\24\26\30\32\34\2"+
+		"\f\3\34!\4))-\60\3\34!\4))-\60\4))\61\62\5\21\21\32\32\34!\4))\61\62\3"+
+		"\22\25\3\b\r\3\22\25\u0085\2 \3\2\2\2\4\'\3\2\2\2\6+\3\2\2\2\b\62\3\2"+
+		"\2\2\n<\3\2\2\2\fI\3\2\2\2\16Z\3\2\2\2\20\\\3\2\2\2\22d\3\2\2\2\24h\3"+
+		"\2\2\2\26k\3\2\2\2\30p\3\2\2\2\32|\3\2\2\2\34~\3\2\2\2\36!\7)\2\2\37!"+
+		"\5\f\7\2 \36\3\2\2\2 \37\3\2\2\2!\"\3\2\2\2\"%\t\2\2\2#&\7)\2\2$&\5\f"+
+		"\7\2%#\3\2\2\2%$\3\2\2\2&\3\3\2\2\2\'(\t\3\2\2()\t\4\2\2)*\t\5\2\2*\5"+
+		"\3\2\2\2+,\t\6\2\2,-\t\7\2\2-.\t\b\2\2.\7\3\2\2\2/\63\5\2\2\2\60\63\5"+
+		"\4\3\2\61\63\5\6\4\2\62/\3\2\2\2\62\60\3\2\2\2\62\61\3\2\2\2\63\t\3\2"+
+		"\2\2\64\65\b\6\1\2\65\66\7\33\2\2\66=\5\n\6\2\678\7\'\2\289\5\n\6\29:"+
+		"\7(\2\2:=\3\2\2\2;=\5\b\5\2<\64\3\2\2\2<\67\3\2\2\2<;\3\2\2\2=F\3\2\2"+
+		"\2>?\6\6\2\3?@\7\30\2\2@E\5\n\6\2AB\6\6\3\3BC\7\31\2\2CE\5\n\6\2D>\3\2"+
+		"\2\2DA\3\2\2\2EH\3\2\2\2FD\3\2\2\2FG\3\2\2\2G\13\3\2\2\2HF\3\2\2\2IL\7"+
+		"*\2\2JK\7\3\2\2KM\7+\2\2LJ\3\2\2\2LM\3\2\2\2MP\3\2\2\2NO\7\4\2\2OQ\7,"+
+		"\2\2PN\3\2\2\2PQ\3\2\2\2Q\r\3\2\2\2RS\7\20\2\2ST\5\f\7\2TU\7\30\2\2UV"+
+		"\5\f\7\2V[\3\2\2\2WX\7\21\2\2XY\7-\2\2Y[\t\t\2\2ZR\3\2\2\2ZW\3\2\2\2["+
+		"\17\3\2\2\2\\]\7\6\2\2]^\7)\2\2^_\7 \2\2_`\t\n\2\2`a\7\'\2\2ab\7)\2\2"+
+		"bc\7(\2\2c\21\3\2\2\2de\7\26\2\2ef\7)\2\2fg\5\16\b\2g\23\3\2\2\2hi\7\27"+
+		"\2\2ij\5\n\6\2j\25\3\2\2\2kn\5\20\t\2lm\7\16\2\2mo\7)\2\2nl\3\2\2\2no"+
+		"\3\2\2\2o\27\3\2\2\2pq\5\20\t\2qr\7\16\2\2rs\7\17\2\2st\7-\2\2tu\t\13"+
+		"\2\2u\31\3\2\2\2vw\7&\2\2w}\5\24\13\2xy\7&\2\2y}\5\26\f\2z{\7&\2\2{}\5"+
+		"\30\r\2|v\3\2\2\2|x\3\2\2\2|z\3\2\2\2}\33\3\2\2\2~\u0080\5\22\n\2\177"+
+		"\u0081\5\32\16\2\u0080\177\3\2\2\2\u0081\u0082\3\2\2\2\u0082\u0080\3\2"+
+		"\2\2\u0082\u0083\3\2\2\2\u0083\35\3\2\2\2\16 %\62<DFLPZn|\u0082";
 	public static final ATN _ATN =
 		ATNSimulator.deserialize(_serializedATN.toCharArray());
 	static {

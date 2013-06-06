@@ -56,7 +56,7 @@ timeRangeExpression
 
 // Aggregate Detail Expression
 aggregateExpression
-    : function=(AVERAGE | COUNT | MIN | MAX | SUM | MEDIAN) OPEN_BRACE funcVar=FIELD_IDENTIFIER CLOSE_BRACE     # calcAggregateFunction
+    : AGGREGATE resultVar=FIELD_IDENTIFIER EQUAL function=(AVERAGE | COUNT | MIN | MAX | SUM | MEDIAN) OPEN_BRACE funcVar=FIELD_IDENTIFIER CLOSE_BRACE     # calcAggregateFunction
     ;
 
 // ASK Query Syntax
@@ -71,11 +71,11 @@ filterQuerySyntax
 
 // Aggregate Query Syntax
 aggregateByFieldQuerySyntax
-    : CALCULATE resultVar=FIELD_IDENTIFIER EQUAL aggregateExpression (BY groupVar=FIELD_IDENTIFIER)?
+    : aggregateExpression (BY groupVar=FIELD_IDENTIFIER)?
     ;
 
 aggregateByTimeQuerySyntax
-    : AGGREGATE resultVar=FIELD_IDENTIFIER EQUAL aggregateExpression BY TIME timeValue=POSITIVE_INTEGER timeUnit=(DAYS | MONTHS | HOURS | MINUTES)
+    : aggregateExpression BY TIME timeValue=POSITIVE_INTEGER timeUnit=(DAYS | MONTHS | HOURS | MINUTES)
     ;
 
 optionalQuerySyntax
