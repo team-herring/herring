@@ -30,6 +30,7 @@ ASK: ('A'|'a')('S'|'s')('K'|'k') ;
 FILTER: ('F'|'f')('I'|'i')('L'|'l')('T'|'t')('E'|'e')('R'|'r') ;
 AND: ('A'|'a')('N'|'n')('D'|'d') ;
 OR: ('O'|'o')('R'|'r') ;
+NOT_IN: ('N'|'n')('O'|'o')('T'|'t')(' ')('I'|'i')('N'|'n') ;
 NOT: ('N'|'n')('O'|'o')('T'|'t') ;
 
 // Comparison Operator

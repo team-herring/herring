@@ -2,16 +2,14 @@
 
 package org.herring.manager.query;
 
-import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.atn.ATN;
-import org.antlr.v4.runtime.atn.ATNSimulator;
-import org.antlr.v4.runtime.atn.ParserATNSimulator;
-import org.antlr.v4.runtime.atn.PredictionContextCache;
+import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
-import org.antlr.v4.runtime.tree.ParseTreeVisitor;
-import org.antlr.v4.runtime.tree.TerminalNode;
-
+import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.misc.*;
+import org.antlr.v4.runtime.tree.*;
 import java.util.List;
+import java.util.Iterator;
+import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class QueryParser extends Parser {
@@ -21,18 +19,18 @@ public class QueryParser extends Parser {
 	public static final int
 		T__1=1, T__0=2, WS=3, AGGREGATE=4, CALCULATE=5, AVERAGE=6, COUNT=7, SUM=8, 
 		MIN=9, MAX=10, MEDIAN=11, BY=12, TIME=13, BETWEEN=14, IN=15, DAYS=16, 
-		MINUTES=17, HOURS=18, MONTHS=19, ASK=20, FILTER=21, AND=22, OR=23, NOT=24, 
-		LESS_THAN=25, LESS_THAN_OR_EQUAL=26, GREATER_THAN=27, GREATER_THAN_OR_EQUAL=28, 
-		EQUAL=29, NOT_EQUAL=30, MULTIPLY=31, ADD=32, DIVIDE=33, SUBTRACT=34, PIPE=35, 
-		OPEN_BRACE=36, CLOSE_BRACE=37, FIELD_IDENTIFIER=38, DATE_LITERAL=39, TIME_LITERAL=40, 
-		ZONE_LITERAL=41, POSITIVE_INTEGER=42, NEGATIVE_INTEGER=43, POSITIVE_REAL=44, 
-		NEGATIVE_REAL=45, SMALL_QUOTED_STRING=46, LARGE_QUOTED_STRING=47;
+		MINUTES=17, HOURS=18, MONTHS=19, ASK=20, FILTER=21, AND=22, OR=23, NOT_IN=24, 
+		NOT=25, LESS_THAN=26, LESS_THAN_OR_EQUAL=27, GREATER_THAN=28, GREATER_THAN_OR_EQUAL=29, 
+		EQUAL=30, NOT_EQUAL=31, MULTIPLY=32, ADD=33, DIVIDE=34, SUBTRACT=35, PIPE=36, 
+		OPEN_BRACE=37, CLOSE_BRACE=38, FIELD_IDENTIFIER=39, DATE_LITERAL=40, TIME_LITERAL=41, 
+		ZONE_LITERAL=42, POSITIVE_INTEGER=43, NEGATIVE_INTEGER=44, POSITIVE_REAL=45, 
+		NEGATIVE_REAL=46, SMALL_QUOTED_STRING=47, LARGE_QUOTED_STRING=48;
 	public static final String[] tokenNames = {
 		"<INVALID>", "'T'", "'Z'", "WS", "AGGREGATE", "CALCULATE", "AVERAGE", 
 		"COUNT", "SUM", "MIN", "MAX", "MEDIAN", "BY", "TIME", "BETWEEN", "IN", 
-		"DAYS", "MINUTES", "HOURS", "MONTHS", "ASK", "FILTER", "AND", "OR", "NOT", 
-		"'<'", "'<='", "'>'", "'>='", "'='", "'!='", "'*'", "'+'", "'/'", "'-'", 
-		"'|'", "'('", "')'", "FIELD_IDENTIFIER", "DATE_LITERAL", "TIME_LITERAL", 
+		"DAYS", "MINUTES", "HOURS", "MONTHS", "ASK", "FILTER", "AND", "OR", "NOT_IN", 
+		"NOT", "'<'", "'<='", "'>'", "'>='", "'='", "'!='", "'*'", "'+'", "'/'", 
+		"'-'", "'|'", "'('", "')'", "FIELD_IDENTIFIER", "DATE_LITERAL", "TIME_LITERAL", 
 		"ZONE_LITERAL", "POSITIVE_INTEGER", "NEGATIVE_INTEGER", "POSITIVE_REAL", 
 		"NEGATIVE_REAL", "SMALL_QUOTED_STRING", "LARGE_QUOTED_STRING"
 	};
@@ -257,6 +255,7 @@ public class QueryParser extends Parser {
 		public List<TerminalNode> FIELD_IDENTIFIER() { return getTokens(QueryParser.FIELD_IDENTIFIER); }
 		public TerminalNode GREATER_THAN() { return getToken(QueryParser.GREATER_THAN, 0); }
 		public TerminalNode NOT_EQUAL() { return getToken(QueryParser.NOT_EQUAL, 0); }
+		public TerminalNode NOT_IN() { return getToken(QueryParser.NOT_IN, 0); }
 		public TerminalNode SMALL_QUOTED_STRING(int i) {
 			return getToken(QueryParser.SMALL_QUOTED_STRING, i);
 		}
@@ -294,7 +293,7 @@ public class QueryParser extends Parser {
 			setState(42);
 			((StringComparisonExpressionContext)_localctx).operator = _input.LT(1);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << IN) | (1L << LESS_THAN) | (1L << LESS_THAN_OR_EQUAL) | (1L << GREATER_THAN) | (1L << GREATER_THAN_OR_EQUAL) | (1L << EQUAL) | (1L << NOT_EQUAL))) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << IN) | (1L << NOT_IN) | (1L << LESS_THAN) | (1L << LESS_THAN_OR_EQUAL) | (1L << GREATER_THAN) | (1L << GREATER_THAN_OR_EQUAL) | (1L << EQUAL) | (1L << NOT_EQUAL))) != 0)) ) {
 				((StringComparisonExpressionContext)_localctx).operator = (Token)_errHandler.recoverInline(this);
 			}
 			consume();
@@ -1105,7 +1104,7 @@ public class QueryParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\2\3\61\u0088\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b"+
+		"\2\3\62\u0088\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b"+
 		"\4\t\t\t\4\n\t\n\4\13\t\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\3\2\3\2"+
 		"\5\2!\n\2\3\2\3\2\3\2\5\2&\n\2\3\3\3\3\3\3\3\3\3\4\3\4\3\4\3\4\3\5\3\5"+
 		"\3\5\5\5\63\n\5\3\6\3\6\3\6\3\6\3\6\3\6\3\6\3\6\5\6=\n\6\3\6\3\6\3\6\3"+
@@ -1114,31 +1113,31 @@ public class QueryParser extends Parser {
 		"\n\3\n\3\n\3\13\3\13\3\13\3\f\3\f\3\f\3\f\3\f\3\f\5\fo\n\f\3\r\3\r\3\r"+
 		"\3\r\3\r\3\r\3\r\3\r\3\r\3\16\3\16\3\16\3\16\3\16\3\16\5\16\u0080\n\16"+
 		"\3\17\3\17\6\17\u0084\n\17\r\17\16\17\u0085\3\17\2\20\2\4\6\b\n\f\16\20"+
-		"\22\24\26\30\32\34\2\f\3\33 \4((,/\3\33 \4((,/\4((\60\61\4\21\21\33 \4"+
-		"((\60\61\3\22\25\3\b\r\3\22\25\u0088\2 \3\2\2\2\4\'\3\2\2\2\6+\3\2\2\2"+
-		"\b\62\3\2\2\2\n<\3\2\2\2\fI\3\2\2\2\16Z\3\2\2\2\20\\\3\2\2\2\22a\3\2\2"+
-		"\2\24e\3\2\2\2\26h\3\2\2\2\30p\3\2\2\2\32\177\3\2\2\2\34\u0081\3\2\2\2"+
-		"\36!\7(\2\2\37!\5\f\7\2 \36\3\2\2\2 \37\3\2\2\2!\"\3\2\2\2\"%\t\2\2\2"+
-		"#&\7(\2\2$&\5\f\7\2%#\3\2\2\2%$\3\2\2\2&\3\3\2\2\2\'(\t\3\2\2()\t\4\2"+
-		"\2)*\t\5\2\2*\5\3\2\2\2+,\t\6\2\2,-\t\7\2\2-.\t\b\2\2.\7\3\2\2\2/\63\5"+
-		"\2\2\2\60\63\5\4\3\2\61\63\5\6\4\2\62/\3\2\2\2\62\60\3\2\2\2\62\61\3\2"+
-		"\2\2\63\t\3\2\2\2\64\65\b\6\1\2\65\66\7\32\2\2\66=\5\n\6\2\678\7&\2\2"+
-		"89\5\n\6\29:\7\'\2\2:=\3\2\2\2;=\5\b\5\2<\64\3\2\2\2<\67\3\2\2\2<;\3\2"+
-		"\2\2=F\3\2\2\2>?\6\6\2\3?@\7\30\2\2@E\5\n\6\2AB\6\6\3\3BC\7\31\2\2CE\5"+
-		"\n\6\2D>\3\2\2\2DA\3\2\2\2EH\3\2\2\2FD\3\2\2\2FG\3\2\2\2G\13\3\2\2\2H"+
-		"F\3\2\2\2IL\7)\2\2JK\7\3\2\2KM\7*\2\2LJ\3\2\2\2LM\3\2\2\2MP\3\2\2\2NO"+
-		"\7\4\2\2OQ\7+\2\2PN\3\2\2\2PQ\3\2\2\2Q\r\3\2\2\2RS\7\20\2\2ST\5\f\7\2"+
-		"TU\7\30\2\2UV\5\f\7\2V[\3\2\2\2WX\7\21\2\2XY\7,\2\2Y[\t\t\2\2ZR\3\2\2"+
-		"\2ZW\3\2\2\2[\17\3\2\2\2\\]\t\n\2\2]^\7&\2\2^_\7(\2\2_`\7\'\2\2`\21\3"+
-		"\2\2\2ab\7\26\2\2bc\7(\2\2cd\5\16\b\2d\23\3\2\2\2ef\7\27\2\2fg\5\n\6\2"+
-		"g\25\3\2\2\2hi\7\7\2\2ij\7(\2\2jk\7\37\2\2kn\5\20\t\2lm\7\16\2\2mo\7("+
-		"\2\2nl\3\2\2\2no\3\2\2\2o\27\3\2\2\2pq\7\6\2\2qr\7(\2\2rs\7\37\2\2st\5"+
-		"\20\t\2tu\7\16\2\2uv\7\17\2\2vw\7,\2\2wx\t\13\2\2x\31\3\2\2\2yz\7%\2\2"+
-		"z\u0080\5\24\13\2{|\7%\2\2|\u0080\5\26\f\2}~\7%\2\2~\u0080\5\30\r\2\177"+
-		"y\3\2\2\2\177{\3\2\2\2\177}\3\2\2\2\u0080\33\3\2\2\2\u0081\u0083\5\22"+
-		"\n\2\u0082\u0084\5\32\16\2\u0083\u0082\3\2\2\2\u0084\u0085\3\2\2\2\u0085"+
-		"\u0083\3\2\2\2\u0085\u0086\3\2\2\2\u0086\35\3\2\2\2\16 %\62<DFLPZn\177"+
-		"\u0085";
+		"\22\24\26\30\32\34\2\f\3\34!\4))-\60\3\34!\4))-\60\4))\61\62\5\21\21\32"+
+		"\32\34!\4))\61\62\3\22\25\3\b\r\3\22\25\u0088\2 \3\2\2\2\4\'\3\2\2\2\6"+
+		"+\3\2\2\2\b\62\3\2\2\2\n<\3\2\2\2\fI\3\2\2\2\16Z\3\2\2\2\20\\\3\2\2\2"+
+		"\22a\3\2\2\2\24e\3\2\2\2\26h\3\2\2\2\30p\3\2\2\2\32\177\3\2\2\2\34\u0081"+
+		"\3\2\2\2\36!\7)\2\2\37!\5\f\7\2 \36\3\2\2\2 \37\3\2\2\2!\"\3\2\2\2\"%"+
+		"\t\2\2\2#&\7)\2\2$&\5\f\7\2%#\3\2\2\2%$\3\2\2\2&\3\3\2\2\2\'(\t\3\2\2"+
+		"()\t\4\2\2)*\t\5\2\2*\5\3\2\2\2+,\t\6\2\2,-\t\7\2\2-.\t\b\2\2.\7\3\2\2"+
+		"\2/\63\5\2\2\2\60\63\5\4\3\2\61\63\5\6\4\2\62/\3\2\2\2\62\60\3\2\2\2\62"+
+		"\61\3\2\2\2\63\t\3\2\2\2\64\65\b\6\1\2\65\66\7\33\2\2\66=\5\n\6\2\678"+
+		"\7\'\2\289\5\n\6\29:\7(\2\2:=\3\2\2\2;=\5\b\5\2<\64\3\2\2\2<\67\3\2\2"+
+		"\2<;\3\2\2\2=F\3\2\2\2>?\6\6\2\3?@\7\30\2\2@E\5\n\6\2AB\6\6\3\3BC\7\31"+
+		"\2\2CE\5\n\6\2D>\3\2\2\2DA\3\2\2\2EH\3\2\2\2FD\3\2\2\2FG\3\2\2\2G\13\3"+
+		"\2\2\2HF\3\2\2\2IL\7*\2\2JK\7\3\2\2KM\7+\2\2LJ\3\2\2\2LM\3\2\2\2MP\3\2"+
+		"\2\2NO\7\4\2\2OQ\7,\2\2PN\3\2\2\2PQ\3\2\2\2Q\r\3\2\2\2RS\7\20\2\2ST\5"+
+		"\f\7\2TU\7\30\2\2UV\5\f\7\2V[\3\2\2\2WX\7\21\2\2XY\7-\2\2Y[\t\t\2\2ZR"+
+		"\3\2\2\2ZW\3\2\2\2[\17\3\2\2\2\\]\t\n\2\2]^\7\'\2\2^_\7)\2\2_`\7(\2\2"+
+		"`\21\3\2\2\2ab\7\26\2\2bc\7)\2\2cd\5\16\b\2d\23\3\2\2\2ef\7\27\2\2fg\5"+
+		"\n\6\2g\25\3\2\2\2hi\7\7\2\2ij\7)\2\2jk\7 \2\2kn\5\20\t\2lm\7\16\2\2m"+
+		"o\7)\2\2nl\3\2\2\2no\3\2\2\2o\27\3\2\2\2pq\7\6\2\2qr\7)\2\2rs\7 \2\2s"+
+		"t\5\20\t\2tu\7\16\2\2uv\7\17\2\2vw\7-\2\2wx\t\13\2\2x\31\3\2\2\2yz\7&"+
+		"\2\2z\u0080\5\24\13\2{|\7&\2\2|\u0080\5\26\f\2}~\7&\2\2~\u0080\5\30\r"+
+		"\2\177y\3\2\2\2\177{\3\2\2\2\177}\3\2\2\2\u0080\33\3\2\2\2\u0081\u0083"+
+		"\5\22\n\2\u0082\u0084\5\32\16\2\u0083\u0082\3\2\2\2\u0084\u0085\3\2\2"+
+		"\2\u0085\u0083\3\2\2\2\u0085\u0086\3\2\2\2\u0086\35\3\2\2\2\16 %\62<D"+
+		"FLPZn\177\u0085";
 	public static final ATN _ATN =
 		ATNSimulator.deserialize(_serializedATN.toCharArray());
 	static {
