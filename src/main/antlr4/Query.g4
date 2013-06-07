@@ -71,7 +71,7 @@ filterQuerySyntax
 
 // Aggregate Query Syntax
 aggregateByFieldQuerySyntax
-    : aggregateExpression (BY groupVar=FIELD_IDENTIFIER)?
+    : aggregateExpression BY groupVar=FIELD_IDENTIFIER
     ;
 
 aggregateByTimeQuerySyntax
