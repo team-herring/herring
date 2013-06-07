@@ -86,5 +86,5 @@ optionalQuerySyntax
 
 // All Query Syntax
 querySyntax
-    : askQuerySyntax optionalQuerySyntax+
+    : askQuerySyntax optionalQuerySyntax+ EOF
     ;
