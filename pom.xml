@@ -114,6 +114,9 @@
                     <includes>
                         <include>**/*Test.java</include>
                     </includes>
+                    <systemProperties>
+                        <user.timezone>GMT</user.timezone>
+                    </systemProperties>
                 </configuration>
             </plugin>
         </plugins>

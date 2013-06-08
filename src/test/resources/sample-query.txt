@@ -1,0 +1,1 @@
+ask @sample in 15minutes | filter "11" not in @b
