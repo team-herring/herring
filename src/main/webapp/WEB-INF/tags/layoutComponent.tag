@@ -7,7 +7,7 @@
 <c:if test="${empty size}">
     <c:set var="size" value="6"/>
 </c:if>
-<div class="tile span${size}">
+<div class="span${size}">
     <h2 class="tile-title">${title}</h2>
 
     <div class="component-contents-container">
