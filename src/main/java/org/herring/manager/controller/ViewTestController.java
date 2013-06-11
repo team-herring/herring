@@ -1,4 +1,4 @@
-package org.herring.manager;
+package org.herring.manager.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
