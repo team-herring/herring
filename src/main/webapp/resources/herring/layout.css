@@ -45,3 +45,7 @@ div.contents-container table.summary td {
     font-size: 24px;
     text-align: center;
 }
+
+div.alert p {
+    margin: 5px 0;
+}
