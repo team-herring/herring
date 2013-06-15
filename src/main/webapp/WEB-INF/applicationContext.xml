@@ -1,0 +1,59 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:annotation-config/>
+
+    <!-- Security Setting -->
+    <security:http auto-config="false" use-expressions="true">
+        <security:form-login login-page="/auth/login.view" login-processing-url="/auth/login.do"
+                             authentication-failure-url="/auth/login.view?failure=true" username-parameter="username"
+                             password-parameter="password"/>
+        <security:intercept-url pattern="/resources/**" access="permitAll"/>
+        <security:intercept-url pattern="/auth/login.view" access="permitAll"/>
+        <security:intercept-url pattern="/auth/accessDenied.view" access="permitAll"/>
+        <security:intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>
+        <security:logout logout-url="/auth/logout.do" logout-success-url="/" invalidate-session="true"/>
+        <security:access-denied-handler error-page="/auth/accessDenied.view"/>
+    </security:http>
+
+    <!-- UUID for Herring Manager Application -->
+    <bean class="java.util.UUID" factory-method="randomUUID" id="managerUUID"/>
+
+    <!-- XML Configuration Service for Herring Manager -->
+    <bean class="org.herring.manager.ConfigurationService" id="configuration">
+        <property name="configurationURL" value="/WEB-INF/classes/herringManager.xml"/>
+    </bean>
+
+    <!-- Zookeeper Client -->
+    <bean class="org.herring.core.cluster.zookeeper.ZookeeperClient" depends-on="configuration" id="zookeeperClient"
+          destroy-method="close">
+        <constructor-arg index="0" type="java.lang.String" value="#{configuration.getZookeeperConnectionString()}"/>
+        <constructor-arg index="1" type="int" value="#{configuration.getZookeeperTimeout()}"/>
+        <constructor-arg index="2" type="java.lang.String" value="#{configuration.getJassConfiguration()}"/>
+    </bean>
+
+    <!-- Heartbeat Manager -->
+    <bean class="org.herring.core.cluster.HeartbeatManager" id="heartbeatManager" init-method="startHeartbeat"
+          destroy-method="stopHeartbeat" depends-on="zookeeperClient">
+        <constructor-arg type="org.herring.core.cluster.zookeeper.ZookeeperClient" ref="zookeeperClient"/>
+        <constructor-arg type="java.util.UUID" ref="managerUUID"/>
+        <constructor-arg type="java.lang.String" value="manager"/>
+    </bean>
+
+    <!-- Authentication Storage using Apache Zookeeper -->
+    <bean id="authenticationStorage" class="org.herring.manager.auth.ZookeeperAuthenticationStorage" depends-on="zookeeperClient">
+        <property name="zookeeperClient" ref="zookeeperClient"/>
+    </bean>
+
+    <!-- Authentication Provider -->
+    <bean id="herringAuthenticationProvider" class="org.herring.manager.auth.HerringAuthenticationProvider"
+          depends-on="authenticationStorage">
+        <property name="authenticationStorage" ref="authenticationStorage"/>
+    </bean>
+    <security:authentication-manager>
+        <security:authentication-provider ref="herringAuthenticationProvider"/>
+    </security:authentication-manager>
+</beans>

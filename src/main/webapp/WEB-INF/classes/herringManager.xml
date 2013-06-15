@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manager>
+    <zookeepers jassConfiguration="jass.conf" timeout="300000">
+        <zookeeper host="127.0.0.1" port="2181"/>
+    </zookeepers>
+</manager>

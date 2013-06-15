@@ -14,17 +14,23 @@
                     <small>Herring!</small>
                 </h4>
             </div>
-            <form class="login-form" method="post" action="">
+            <form class="login-form" method="post" action="<c:url value="/auth/login.do"/>">
                 <div class="control-group">
-                    <input type="text" placeholder="Login ID" class="login-field" name="login-id" id="login-id"/>
+                    <input type="text" placeholder="Login ID" class="login-field" name="username" id="login-id"/>
                     <label class="login-field-icon fui-user" for="login-id"></label>
                 </div>
                 <div class="control-group">
-                    <input type="password" placeholder="Password" class="login-field" name="login-password" id="login-password"/>
+                    <input type="password" placeholder="Password" class="login-field" name="password" id="login-password"/>
                     <label class="login-field-icon fui-lock" for="login-password"></label>
                 </div>
                 <input type="submit" value="Login" id="login-button" class="btn btn-primary btn-large btn-block"/>
             </form>
+            <c:if test="${failure}">
+                <div class="alert alert-error">
+                    <h4>Login Failure</h4>
+                    <p>아이디 또는 비밀번호가 올바르지 않습니다.</p>
+                </div>
+            </c:if>
         </div>
     </jsp:body>
 </h:html>
