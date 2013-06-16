@@ -4,6 +4,8 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.herring.core.cluster.ClusterSharedStorage;
 import org.herring.core.cluster.zookeeper.ZookeeperClient;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -43,6 +45,10 @@ public class ZookeeperAuthenticationStorage implements AuthenticationStorage {
 
         if (storage.containsKey(user.getUsername()))
             throw new IllegalArgumentException("Given username already exists.");
+
+        // Password Encoding
+        PasswordEncoder passwordEncoder = new StandardPasswordEncoder();
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         ObjectMapper mapper = new ObjectMapper();
         String jsonified = mapper.writeValueAsString(user);

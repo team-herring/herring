@@ -7,14 +7,13 @@
     <context:annotation-config/>
 
     <!-- Security Setting -->
-    <security:http auto-config="false" use-expressions="true">
+    <security:http auto-config="true" use-expressions="true">
         <security:form-login login-page="/auth/login.view" login-processing-url="/auth/login.do"
                              authentication-failure-url="/auth/login.view?failure=true" username-parameter="username"
                              password-parameter="password"/>
         <security:intercept-url pattern="/resources/**" access="permitAll"/>
         <security:intercept-url pattern="/auth/login.view" access="permitAll"/>
         <security:intercept-url pattern="/auth/accessDenied.view" access="permitAll"/>
-        <security:intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>
         <security:logout logout-url="/auth/logout.do" logout-success-url="/" invalidate-session="true"/>
         <security:access-denied-handler error-page="/auth/accessDenied.view"/>
     </security:http>
@@ -44,7 +43,8 @@
     </bean>
 
     <!-- Authentication Storage using Apache Zookeeper -->
-    <bean id="authenticationStorage" class="org.herring.manager.auth.ZookeeperAuthenticationStorage" depends-on="zookeeperClient">
+    <bean id="authenticationStorage" class="org.herring.manager.auth.ZookeeperAuthenticationStorage"
+          depends-on="zookeeperClient">
         <property name="zookeeperClient" ref="zookeeperClient"/>
     </bean>
 

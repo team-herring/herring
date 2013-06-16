@@ -46,7 +46,7 @@ public class AuthenticationController {
         return view;
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @RequestMapping(value = "/addUser.view", method = RequestMethod.GET)
     public ModelAndView viewAddUser(HttpServletRequest request) {
         ModelAndView view = new ModelAndView("addUser");
@@ -76,6 +76,13 @@ public class AuthenticationController {
 
         view.addObject("failure", failure);
         view.addObject("successInfo", user.toString());
+
+        return view;
+    }
+
+    @RequestMapping(value = "/accessDenied.view", method = RequestMethod.GET)
+    public ModelAndView viewAccessDenied() {
+        ModelAndView view = new ModelAndView("accessDenied");
 
         return view;
     }
