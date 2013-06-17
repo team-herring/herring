@@ -1,0 +1,21 @@
+table.userList {
+    margin: 5px auto;
+}
+
+table.userList td.action {
+    vertical-align: middle;
+}
+
+table.userList td span.fui-user {
+    font-size: 18pt !important;
+    margin-right: 4px;
+}
+
+table.userList tbody tr {
+    height: 65px;
+    vertical-align: middle;
+}
+
+table.userList td form {
+    margin: 0;
+}

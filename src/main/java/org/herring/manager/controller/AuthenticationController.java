@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -48,7 +49,7 @@ public class AuthenticationController {
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @RequestMapping(value = "/addUser.view", method = RequestMethod.GET)
-    public ModelAndView viewAddUser(HttpServletRequest request) {
+    public ModelAndView viewAddUser() {
         ModelAndView view = new ModelAndView("addUser");
 
         List<String> userRoles = new ArrayList<String>();
@@ -83,6 +84,97 @@ public class AuthenticationController {
     @RequestMapping(value = "/accessDenied.view", method = RequestMethod.GET)
     public ModelAndView viewAccessDenied() {
         ModelAndView view = new ModelAndView("accessDenied");
+
+        return view;
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @RequestMapping(value = "/deleteUser.do", method = RequestMethod.POST)
+    public ModelAndView deleteUser(HttpServletRequest request, Principal principal) {
+        ModelAndView view = new ModelAndView("deleteUserResult");
+        boolean failure = false;
+
+        String username = request.getParameter("username");
+
+        try {
+            if (username.equals(principal.getName()))
+                throw new IllegalArgumentException("Logged User cannot be removed.");
+
+            authenticationStorage.deleteUser(username);
+        } catch (Exception e) {
+            failure = true;
+            view.addObject("failureInfo", e.getMessage());
+        }
+
+        view.addObject("failure", failure);
+
+        return view;
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @RequestMapping(value = "/editUser.view", method = RequestMethod.GET)
+    public ModelAndView viewEditUser(HttpServletRequest request) {
+        ModelAndView view = new ModelAndView("editUser");
+        boolean failure = false;
+
+        User user = null;
+        String username = request.getParameter("username");
+
+        try {
+            user = authenticationStorage.getUserByName(username);
+        } catch (Exception e) {
+            failure = true;
+            view.addObject("failureInfo", e.getMessage());
+        }
+
+        List<String> userRoles = new ArrayList<String>();
+
+        userRoles.add("ROLE_ADMIN");
+        userRoles.add("ROLE_USER");
+
+        view.addObject("userRoles", userRoles);
+        view.addObject("failure", failure);
+        view.addObject("user", user);
+
+        return view;
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @RequestMapping(value = "/editUser.do", method = RequestMethod.POST)
+    public ModelAndView editUser(@ModelAttribute User user) {
+        ModelAndView view = new ModelAndView("editUserResult");
+        boolean failure = false;
+
+        try {
+            authenticationStorage.editUser(user);
+        } catch (Exception e) {
+            failure = true;
+            view.addObject("failureInfo", e.getMessage());
+        }
+
+        view.addObject("successInfo", user.toString());
+        view.addObject("failure", failure);
+
+        return view;
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @RequestMapping(value = "/listUser.view", method = RequestMethod.GET)
+    public ModelAndView viewListUser(Principal principal) {
+        ModelAndView view = new ModelAndView("listUser");
+        boolean failure = false;
+
+        try {
+            List<String> userList = authenticationStorage.getListOfUsername();
+
+            view.addObject("userList", userList);
+        } catch (Exception e) {
+            failure = true;
+            view.addObject("failureInfo", e.getMessage());
+        }
+
+        view.addObject("failure", failure);
+        view.addObject("currentUsername", principal.getName());
 
         return view;
     }

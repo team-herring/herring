@@ -15,7 +15,7 @@ public class User {
 
     public User() {
         username = null;
-        password =null;
+        password = null;
         roles = new ArrayList<String>();
     }
 
@@ -47,7 +47,7 @@ public class User {
     }
 
     public void addRole(String role) {
-        if (!roles.contains(role))
+        if (!checkRole(role))
             roles.add(role);
     }
 
@@ -63,6 +63,10 @@ public class User {
             builder.append(role);
 
         return builder.toString();
+    }
+
+    public boolean checkRole(String role) {
+        return roles.contains(role);
     }
 
 }

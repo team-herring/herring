@@ -7,8 +7,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -34,7 +34,7 @@ public class AuthenticationStorageTest {
             User user = storage.getUserByName("admin");
         } catch (UsernameNotFoundException e) {
             User user = new User();
-            PasswordEncoder passwordEncoder = new StandardPasswordEncoder();
+            PasswordEncoder passwordEncoder = NoOpPasswordEncoder.getInstance();
 
             user.setUsername("admin");
             user.setPassword(passwordEncoder.encode("herring"));

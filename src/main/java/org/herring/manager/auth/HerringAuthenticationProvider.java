@@ -8,8 +8,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ public class HerringAuthenticationProvider implements AuthenticationProvider {
 
     public HerringAuthenticationProvider() {
         authenticationStorage = null;
-        passwordEncoder = new StandardPasswordEncoder();
+        passwordEncoder = NoOpPasswordEncoder.getInstance();
     }
 
     public void setAuthenticationStorage(AuthenticationStorage authenticationStorage) {

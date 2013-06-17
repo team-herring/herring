@@ -4,11 +4,12 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.herring.core.cluster.ClusterSharedStorage;
 import org.herring.core.cluster.zookeeper.ZookeeperClient;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -30,6 +31,11 @@ public class ZookeeperAuthenticationStorage implements AuthenticationStorage {
     }
 
     @Override
+    public List<String> getListOfUsername() throws IOException {
+        return storage.getKeyList();
+    }
+
+    @Override
     public User getUserByName(String name) throws IOException, UsernameNotFoundException {
         if (!storage.containsKey(name))
             throw new UsernameNotFoundException("User name '" + name + "' is not found.");
@@ -40,14 +46,14 @@ public class ZookeeperAuthenticationStorage implements AuthenticationStorage {
     }
 
     @Override
-    public void addUser(User user) throws IOException {
+    public void addUser(User user) throws IOException, IllegalArgumentException {
         validateUser(user);
 
         if (storage.containsKey(user.getUsername()))
             throw new IllegalArgumentException("Given username already exists.");
 
         // Password Encoding
-        PasswordEncoder passwordEncoder = new StandardPasswordEncoder();
+        PasswordEncoder passwordEncoder = NoOpPasswordEncoder.getInstance();
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         ObjectMapper mapper = new ObjectMapper();
@@ -56,7 +62,34 @@ public class ZookeeperAuthenticationStorage implements AuthenticationStorage {
         storage.put(user.getUsername(), jsonified);
     }
 
-    private void validateUser(User user) {
+    @Override
+    public void deleteUser(String username) throws IOException, IllegalArgumentException {
+        if (username.length() <= 0)
+            throw new IllegalArgumentException("Username is needed.");
+        if (!storage.containsKey(username))
+            throw new IllegalArgumentException("Given username doesn't exists.");
+
+        storage.remove(username);
+    }
+
+    @Override
+    public void editUser(User user) throws IOException, IllegalArgumentException {
+        validateUser(user);
+
+        if (!storage.containsKey(user.getUsername()))
+            throw new IllegalArgumentException("Given username doesn't exists.");
+
+        // Password Encoding
+        PasswordEncoder passwordEncoder = NoOpPasswordEncoder.getInstance();
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonified = mapper.writeValueAsString(user);
+
+        storage.put(user.getUsername(), jsonified);
+    }
+
+    private void validateUser(User user) throws IllegalArgumentException {
         if (user.getRoles().length <= 0)
             throw new IllegalArgumentException("User must have least one role.");
         if (user.getUsername().length() <= 0)

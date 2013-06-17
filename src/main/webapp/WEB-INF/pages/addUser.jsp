@@ -17,11 +17,13 @@
                         <c:forEach var="role" items="${userRoles}">
                             <label class="checkbox" for="checkbox_${role}">
                                 <input type="checkbox" value="${role}" name="roles" data-toggle="checkbox"/>
-                                ${role}
+                                    ${role}
                             </label>
                         </c:forEach>
                     </div>
-                    <input type="submit" value="Submit"/>
+                    <input type="submit" value="추가하기" class="btn btn-primary"/>
+                    <p><a href="<c:url value="/auth/listUser.view"/>"><span class="fui-arrow-left"></span>목록으로 돌아가기</a>
+                    </p>
                 </form>
             </jsp:attribute>
         </h:layoutComponent>
